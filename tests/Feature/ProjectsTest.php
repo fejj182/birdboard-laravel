@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Project;
 
 class ProjectsTest extends TestCase
 {
@@ -13,8 +14,8 @@ class ProjectsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_project()
     {
-        $this->actingAs(factory('App\User')->create());
         $this->withoutExceptionHandling();
+        $this->actingAs(factory('App\User')->create());
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -27,15 +28,28 @@ class ProjectsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_view_a_project()
+    public function a_user_can_view_their_project()
     {
         $this->withoutExceptionHandling();
 
-        $project = factory('App\Project')->create();
+        $this->actingAs(factory('App\User')->create());
+
+        $project = factory('App\Project')->create(['owner_id' => auth()->user()->id]);
 
         $this->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
+    }
+
+    /** @test */
+    public function a_user_cannot_view_someone_elses_project()
+    {
+        $this->actingAs(factory('App\User')->create());
+
+        $project = factory('App\Project')->create();
+
+        $this->get($project->path())
+            ->assertForbidden();
     }
 
     /** @test */
@@ -55,10 +69,23 @@ class ProjectsTest extends TestCase
     }
 
     /** @test */
-    public function only_authenticated_users_can_create_projects()
+    public function guests_cannot_create_projects()
     {
         $attributes = factory('App\Project')->raw(['owner_id' => null]);
         $this->post('projects', $attributes)->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function guests_cannot_view_projects()
+    {
+        $this->get('projects')->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function guests_cannot_view_a_single_project()
+    {
+        $project = factory(Project::class)->create();
+        $this->get($project->path())->assertRedirect('/login');
     }
     
 }

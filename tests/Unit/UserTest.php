@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 class UserTest extends TestCase
 {
     use RefreshDatabase;
+    
     /** @test */
     public function has_projects()
     {
