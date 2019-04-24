@@ -5,17 +5,14 @@
         <a href="/projects/create">New project</a>
     </div>
 
-    <ul>
+    <div class="flex">
         @forelse ($projects as $project)
-            <li>
-                <a href="{{$project->path()}}">
-                    {{ $project->title }}
-                </a>
-            </li>
-
+            <div class="bg-white p-5 mr-4 rounded shadow w-1/3" style="height:200px;">
+                <h3 class="font-normal text-xl py-4">{{ $project->title }}</h3>
+                <div class="text-grey-dark">{{ str_limit($project->description, 100) }}</div>
+            </div>
         @empty
-            <li>No projects yet</li>
-
+            <div>No projects yet.</div>
         @endforelse
-    </ul>
+    </div>
 @endsection
