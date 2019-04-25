@@ -1,7 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $project->title }}</h1>
-    <div>{{ $project->description }}</div>
-    <a href="/projects">Back</a>
+    <header class="flex items-center mb-3 py-4">
+        <div class="flex justify-between w-full items-end">
+            <p class="text-grey-dark text-base font-normal">
+                <a href="/projects" class="text-grey-dark text-base font-normal no-underline">My Projects</a>
+                 / {{ $project->title }}
+            </p>
+            <a href="/projects/create" class="button">New project</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="lg:flex -m-3">
+            <div class="lg:w-3/4 px-3 pb-6">
+                <div class="mb-8">
+                    <h2 class="text-lg text-grey-dark font-normal mb-3">Tasks</h2>
+                    <div class="card mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
+                    <div class="card mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
+                    <div class="card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
+                </div>
+
+                <div>
+                    <h2 class="text-lg text-grey-dark font-normal mb-3">General Notes</h2>
+                    <textarea class="card w-full" style="min-height: 200px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</textarea>
+                </div>
+            </div>
+            <div class="lg:w-1/4 px-3">
+                @include('projects.card')
+            </div>
+        </div>
+    </main>
 @endsection
