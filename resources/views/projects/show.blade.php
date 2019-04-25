@@ -16,9 +16,9 @@
             <div class="lg:w-3/4 px-3 pb-6">
                 <div class="mb-8">
                     <h2 class="text-lg text-grey-dark font-normal mb-3">Tasks</h2>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
-                    <div class="card">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, dicta, illum in ipsa, sit distinctio fugit cupiditate perspiciatis eveniet aut esse corporis sunt dolorem deserunt non. Maiores quam adipisci tempore!</div>
+                    @foreach ($project->tasks as $task)
+                        <div class="card mb-3">{{ $task->description }}</div>    
+                    @endforeach
                 </div>
 
                 <div>
