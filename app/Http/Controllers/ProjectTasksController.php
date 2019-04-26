@@ -13,8 +13,12 @@ class ProjectTasksController extends Controller
             'description' => 'required',
         ]);
 
+        if (auth()->user()->isNot($project->owner)) {
+            return abort(403);
+        }
+        
         $project->addTask(request('description'));
-
         return redirect($project->path());
+        
     }
 }

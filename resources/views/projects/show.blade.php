@@ -19,6 +19,12 @@
                     @foreach ($project->tasks as $task)
                         <div class="card mb-3">{{ $task->description }}</div>    
                     @endforeach
+                    <div class="card mb-3">
+                        <form action="{{$project->path() . '/tasks'}}" method="POST">
+                            @csrf
+                            <input placeholder="Add a new task..." class="w-full" name="description">
+                        </form>
+                    </div>
                 </div>
 
                 <div>
