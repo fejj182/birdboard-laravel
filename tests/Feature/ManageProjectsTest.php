@@ -23,7 +23,11 @@ class ManageProjectsTest extends TestCase
         ];
 
         $this->get('/projects/create')->assertSee('form');
-        $this->post('/projects', $attributes)->assertRedirect('/projects');
+        $response = $this->post('/projects', $attributes);
+
+        $response->assertRedirect(Project::where($attributes)->first()->path());
+
+
         $this->assertDatabaseHas('projects', $attributes);
         $this->get('/projects')->assertSee($attributes['title']);
     }

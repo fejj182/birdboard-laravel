@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable = ['description'];
+    protected $fillable = ['description', 'completed'];
+
+    public function path()
+    {
+        return "/projects/{$this->project->id}/tasks/{$this->id}";
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }
